@@ -70,18 +70,17 @@ PLAY [Support via configuration as code (CaC) the creation of new Management Zon
 TASK [Gathering Facts] ********************************************************************************************************************************************************************************************
 ok: [localhost]
 
+TASK [Get existing dynatrace management zones] ********************************************************************************************************************************************************************
+ok: [localhost]
+
+TASK [set_fact] ***************************************************************************************************************************************************************************************************
+skipping: [localhost] => (item=AllianzTest)
+skipping: [localhost] => (item=AllianzTest3)
+
 TASK [Create a dynatrace management zone] *************************************************************************************************************************************************************************
 [WARNING]: The value False (type bool) in a string field was converted to u'False' (type string). If this does not look like what you expect, quote the entire value to ensure it does not change.
 ok: [localhost]
 
-TASK [debug] ******************************************************************************************************************************************************************************************************
-ok: [localhost] => {
-    "content.json": {
-        "id": "2408081367815067389",
-        "name": "AllianzTest2"
-    }
-}
-
 PLAY RECAP ********************************************************************************************************************************************************************************************************
-localhost                  : ok=3    changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0
+localhost                  : ok=3    changed=0    unreachable=0    failed=0    skipped=1    rescued=0    ignored=0
 ```
