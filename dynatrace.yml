@@ -1,0 +1,44 @@
+---
+- name: Support via configuration as code (CaC) the creation of new Management Zones within Dynatrace
+  hosts: localhost
+  
+  vars:
+    environment_url: https://{your-environment-id}.live.dynatrace.com/api/config/v1/managementZones
+    paas_token: '{your-paas-token}'
+    jsonVar: "{{ lookup('file', 'mzone.json') | from_json }}"
+    mname: "{{ jsonVar['name'] }}"
+    existing_zone: False
+    
+  tasks:
+  - name: Get existing dynatrace management zones
+    uri:
+      url: "{{ environment_url }}"
+      method: GET
+      return_content: yes
+      headers:
+        Content-Type: 'application/json'
+        Authorization: 'Api-Token {{ paas_token }}'
+    register: content
+
+  - set_fact:
+        existing_zone: True
+    loop: "{{ content.json | json_query('values[*].name') }}"
+    when: item == mname
+    
+        
+  - name: Create a dynatrace management zone
+    uri:
+      url: "{{ environment_url }}"
+      method: POST
+      return_content: yes
+      src: ./mzone.json
+      remote_src: no
+      headers:
+        Content-Type: 'application/json'
+        Authorization: 'Api-Token {{ paas_token }}'
+      status_code: 201
+    when: not existing_zone
+    register: content
+
+
+
