@@ -25,9 +25,9 @@ payload = json.load(f)
 def checkExistingMgmtZones(url, mzone, headers):
   r = requests.get(url,  headers=headers)
   response_json = r.content.decode('utf8').replace("'", '"')
-  payload = json.loads(response_json)
+  temp_json = json.loads(response_json)
   existing_mzones = []
-  for value in (payload.get('values')):
+  for value in (temp_json.get('values')):
     existing_mzones.append(value.get('name'))
   if mzone in existing_mzones:
     return True
@@ -38,9 +38,9 @@ def checkExistingMgmtZones(url, mzone, headers):
 def getExistingMgmtZonesId(url, mzone, headers):
   r = requests.get(url, headers=headers)
   response_json = r.content.decode('utf8').replace("'", '"')
-  payload = json.loads(response_json)
+  temp_json = json.loads(response_json)
   existing_mzones_id = []
-  for value in (payload.get('values')):
+  for value in (temp_json.get('values')):
     if (value.get('name')) == mzone:
       existing_mzones_id.append(value.get('id'))
   return existing_mzones_id
