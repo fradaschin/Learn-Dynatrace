@@ -11,8 +11,8 @@ import sys
 CONFIGFILE=sys.argv[1]
 
 # Enter your own environment id and API key token here
-YOUR_ENV_ID = 'fbg97110'
-YOUR_API_TOKEN = 'W5_L3qyDSW2PqXMDHJQk1'
+YOUR_ENV_ID = ''
+YOUR_API_TOKEN = ''
 
 headers = {'Content-Type' : 'application/json', 'Authorization' : 'Api-Token ' + YOUR_API_TOKEN }
 url1 = 'https://' + YOUR_ENV_ID + '.live.dynatrace.com/api/config/v1/managementZones/validator'
